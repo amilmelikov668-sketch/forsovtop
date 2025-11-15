@@ -2,133 +2,47 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forsov Game</title>
-    <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+<title>Forsov Game Mobile</title>
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-    <div id="app">
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-logo">F</div>
-                <div class="brand-text">
-                    <div class="brand-name">Forsov Game</div>
-                    <div class="brand-sub">mini casino</div>
-                </div>
-            </div>
+<div class="app">
+  <header class="top">
+    <div class="logo">F</div>
+    <div class="user" id="userChip">Loading...</div>
+    <button id="themeToggle">🌓</button>
+  </header>
 
-            <nav class="nav">
-                <button class="nav-item active">🎮 Мины</button>
-                <button class="nav-item">🎰 Слоты (скоро)</button>
-                <button class="nav-item">🎡 Рулетка (скоро)</button>
-                <button class="nav-item">🃏 Карты (скоро)</button>
-            </nav>
-
-            <div class="sidebar-footer">
-                <div class="mini-label">Связан с Telegram ботом</div>
-                <div class="mini-value">@ForsovGameBot</div>
-            </div>
-        </aside>
-
-        <div class="main">
-            <header class="topbar">
-                <div class="top-left">
-                    <h1>Мины</h1>
-                    <p>Выбирай ставку, количество бомб и открывай клетki. Баланс общий с ботом.</p>
-                </div>
-                <div class="top-right">
-                    <div class="userinfo" id="userChip">Гость</div>
-                    <button class="theme-toggle" id="themeToggle">🌓</button>
-                </div>
-            </header>
-
-            <main class="content">
-                <section class="column column-left">
-                    <div class="card card-balance">
-                        <div class="card-header">
-                            <span>Баланс</span>
-                            <span class="pill pill-green" id="gamesTotal">0 игр</span>
-                        </div>
-                        <div class="balance-main">
-                            <div class="balance-amount" id="balance">0.00 M</div>
-                            <div class="balance-sub">
-                                <span>Выиграно: <b id="wonTotal">0.00 M</b></span>
-                                <span>Проиграно: <b id="lostTotal">0.00 M</b></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card card-controls">
-                        <div class="field">
-                            <label>Количество бомб</label>
-                            <select id="bombs">
-                                <option value="3">3 (низкий риск)</option>
-                                <option value="5">5 (средний риск)</option>
-                                <option value="8">8 (высокий риск)</option>
-                                <option value="12">12 (ультра риск)</option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label>Ставка</label>
-                            <div class="bet-row">
-                                <input id="amount" type="number" min="1" step="1" value="10" />
-                                <div class="bet-buttons">
-                                    <button data-act="min">Min</button>
-                                    <button data-act="x2">x2</button>
-                                    <button data-act="max">Max</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button id="playBtn" class="btn-primary">🚀 Играть</button>
-
-                        <div class="results-row">
-                            <div class="results-item">
-                                <span class="label">Последний выигрыш</span>
-                                <span class="value" id="lastWin">0.00 M</span>
-                            </div>
-                            <div class="results-item">
-                                <span class="label">Множитель</span>
-                                <span class="value" id="lastMult">1.00 X</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card card-hint">
-                        <div class="hint-title">Как это работает?</div>
-                        <ul>
-                            <li>Запускай мини-аппу из Telegram-бота.</li>
-                            <li>Ставка и баланс хранятся на стороне бота (SQLite).</li>
-                            <li>История последних игр отображается справа.</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="column column-right">
-                    <div class="card card-grid">
-                        <div class="card-header">
-                            <span>Поле мин</span>
-                            <span class="pill" id="bombsLabel">3 бомбы</span>
-                        </div>
-                        <div class="grid" id="grid"></div>
-                    </div>
-
-                    <div class="card card-history">
-                        <div class="card-header">
-                            <span>История ставок</span>
-                            <span class="pill pill-gray" id="historyCount">0 записей</span>
-                        </div>
-                        <div class="history-list" id="historyList">
-                            <div class="history-empty">Пока нет ставок — сделай первую игру 🚀</div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-        </div>
+  <section class="balance-card">
+    <div class="bal">Баланс: <span id="balance">0.00</span> M</div>
+    <div class="stats">
+      <div>Игр: <span id="games">0</span></div>
+      <div>Выиграно: <span id="won">0.00</span></div>
+      <div>Проиграно: <span id="lost">0.00</span></div>
     </div>
+  </section>
 
-    <script src="script.js"></script>
+  <section class="controls">
+    <label>Ставка</label>
+    <input id="amount" type="number" value="10"/>
+    <label>Бомбы</label>
+    <select id="bombs">
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="8">8</option>
+    </select>
+    <button id="playBtn" class="play">Играть 🚀</button>
+
+    <div class="result">
+      Win: <span id="lastWin">0.00</span> | X <span id="lastMult">1.00</span>
+    </div>
+  </section>
+
+  <section class="grid" id="grid"></section>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
